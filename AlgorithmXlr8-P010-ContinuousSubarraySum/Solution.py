@@ -5,20 +5,25 @@ def main():
     # Write your solution here.
     # Print "true" if a subarray of length >= 2 sums to a multiple of k, otherwise "false".
 
-    def check_subarray_sum(nums, k):
-        seen = {0: -1}                        # remainder -> first index seen (seed: empty prefix at -1)
+    # ISSUE IN QUESTION, ASKED FOR LENGTH>=2, BUT CODE WORKS FOR LENGTH>2
+
+    def func(nums, n, k):
         total = 0
-        for i, x in enumerate(nums):
-            total += x
-            rem = total % k if k != 0 else total
-            if rem in seen:
-                if i - seen[rem] > 2:              # far enough apart to have length at least 2
-                    return True
+        mp = {0: -1}
+
+        for i in range(n):
+            total += nums[i]
+            rem = total%k if k!=0 else total
+
+            if rem in mp:
+                length = i - mp.get(rem)
+                if length > 2: return True
             else:
-                seen[rem] = i
+                mp[rem] = i
+
         return False
 
-    ans = check_subarray_sum(nums, k)
+    ans = func(nums, n, k)
 
     print("true") if ans else print("false")
 
