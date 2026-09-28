@@ -7,16 +7,16 @@ def main():
     # formatted to exactly 5 decimal places.
 
     left, right = 0, 0
-    sum, ans = 0, float('-inf')
+    sum, maxi = 0, float('-inf')
     for right in range(n):
         sum += nums[right]
-        ans = max(ans, (sum/k))
 
         if right - left + 1 == k:
+            maxi = max(maxi, sum)
             sum -= nums[left]
             left += 1
 
-    print(f"{ans:,.5f}")
+    print(f"{(maxi/k):,.5f}")
 
 
 if __name__ == "__main__":
