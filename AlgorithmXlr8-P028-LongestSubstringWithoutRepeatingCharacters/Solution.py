@@ -5,18 +5,19 @@ def main():
     # Print the length of the longest substring of s with no
     # repeating characters.
 
+    n = len(s)
     freq = {}
-    ans, curr = 0, 0
+    ans = 0
+    left, right = 0, 0
 
-    for ch in s:
-        freq[ch] = freq.get(ch, 0) + 1
-        curr += 1
+    for right in range(n):
+        freq[s[right]] = freq.get(s[right], 0) + 1
 
-        if freq[ch] > 1:
-            curr = 0
-            freq.clear()
-        
-        ans = max(curr, ans)
+        while(freq[s[right]] > 1):
+            freq[s[left]] -= 1
+            left += 1
+
+        ans = max(ans, right-left+1)
 
     print(ans)
 
